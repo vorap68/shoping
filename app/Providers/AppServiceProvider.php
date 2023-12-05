@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+     Blade::directive('localeactive', function ($localecurrent) {
+        $locale = session('locale');
+        if($locale == trim($localecurrent, '"')){
+            return  "selected";
+        }
+         return "";
+     });
     }
 }

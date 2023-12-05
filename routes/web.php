@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+    'middleware' => 'locale.set',
+],function(){
+    Route::get('/', 'App\Http\Controllers\MainController@mainPage')->name('main');
+    Route::post('locale','App\Http\Controllers\MainController@locale')->name('locale_change');
+    Route::get('category/{code}','App\Http\Controllers\MainController@category')->name('category');
 });
 
 Auth::routes();
