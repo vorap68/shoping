@@ -10,7 +10,7 @@ class LocaleSet
 {
     /**
      * Handle an incoming request.
-     *
+     * Setting current locale while starting
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
@@ -18,6 +18,9 @@ class LocaleSet
     public function handle(Request $request, Closure $next)
     {
         $locale = session('locale');
+        if(is_null($locale)) {
+            session(['locale' => 'ua']);
+        }
         App::setLocale($locale);
         return $next($request);
     }

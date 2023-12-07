@@ -19,7 +19,8 @@ Route::group([
 ],function(){
     Route::get('/', 'App\Http\Controllers\MainController@mainPage')->name('main');
     Route::post('locale','App\Http\Controllers\MainController@locale')->name('locale_change');
-    Route::get('category/{code}','App\Http\Controllers\MainController@category')->name('category');
+    Route::get('category/{category}','App\Http\Controllers\MainController@category')->name('category');
+    Route::get('product/{product}','App\Http\Controllers\MainController@product')->name('product');
 });
 
 Auth::routes();

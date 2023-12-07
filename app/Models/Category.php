@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\LingvoTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
 /**
  * App\Models\Category
@@ -38,4 +39,8 @@ class Category extends Model
     protected $fillable = [
         'code','name_ua','name_ru','description_ua','description_ru','image',
     ];
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }

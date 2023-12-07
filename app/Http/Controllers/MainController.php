@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Illuminate\Support\Facades\App;
+use App\Models\Product;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
+
 
 class MainController extends Controller
 {
@@ -17,17 +17,21 @@ class MainController extends Controller
     public function mainPage()
     {
         $categories = Category::get();
-        dd($categories);
-
         return view('categories', compact('categories'));
     }
 
-    public function Category($code)
+    public function category(Category $category)
     {
-      //
+        return view('category', compact('category'));
+    }
+
+    public function product(Product $product)
+    {
+        return view('product', compact('product'));
     }
 
     /**
+     * Setting session('locale') for middleware after change language
      * @return void
      */
     public function locale(Request $request)

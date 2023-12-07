@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\App;
 /**
  * Get name from table categories according currnt locale
  */
-
 trait LingvoTrait
 {
-
     /**
      * @param string $originFieldName
      * @return string
@@ -23,7 +21,6 @@ trait LingvoTrait
         } else {
             $fieldName = $originFieldName . '_ua';
         };
-
         return $this->$fieldName;
     }
 }
