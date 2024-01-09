@@ -2,5 +2,9 @@
 return [
     'Online_Shop' => 'Iнтернет магазин',
     'All_goods' => 'Усі товари',
-    'Basket' => 'В кошик'
+    'In_basket' => 'В кошик',
+    'Basket' => 'Kошик',
+    'details' => 'Детальнiше',
+    'log_in' => 'Увійти',
+    'search' => 'пошук',
 ];

@@ -20,6 +20,7 @@ class LocaleSet
         $locale = session('locale');
         if(is_null($locale)) {
             session(['locale' => 'ua']);
+            $locale = 'ua';
         }
         App::setLocale($locale);
         return $next($request);
