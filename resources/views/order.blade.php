@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <p>Общая стоимость заказа: <b> </b></p>
-        <form action="#" method="POST">
+        <form action="{{route('basket.confirm')}}" method="POST">
             @csrf
             <div>
               <div class="container">

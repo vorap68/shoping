@@ -17,8 +17,10 @@ class Basket
     public function __construct()
     {
         $orderId = session('order_id');
+        //dd($orderId);
         if (!is_null($orderId)) {
             $this->order = Order::find($orderId);
+            //dd($this->order);
         } else {
             $this->order = Order::create();
             session(['order_id' => $this->order->id]);
@@ -37,9 +39,26 @@ class Basket
      * @return integer count product from DB
      */
 
-    public function countAvaliable($product)
+    public function countAvaliable()
     {
-        return $product->count;
+        foreach($this->order->products as $order_product){
+
+            $pivotRow = $order_product->pivot;
+
+            $product =  Product::findOrFail($pivotRow->product_id);
+            $productCount = $product->count;
+
+           // if($pivotRow->id != $product->id) continue;
+            if($pivotRow->count > $productCount){
+                //dd('count_less');
+                return false;
+            }
+
+            $product->update(['count'=> ($productCount - $pivotRow->count)]);
+           // dd($productCount);
+        }
+        return true;
+
     }
 
     /**
@@ -52,15 +71,19 @@ class Basket
         if ($this->order->products->contains($product)) {
             $pivotRow = $this->order->products()->where('product_id', $product->id)->first()->pivot;
             $countInOrder = $pivotRow->count;
+          if($countInOrder >= $product->count){
+                     return false;
+           }
             $this->order->products()->updateExistingPivot($product->id, ['count' => ($countInOrder + 1)]);
         } else {
-            if ($this->countAvaliable($product) >= 1) {
+            if ($product->count >= 1) {
                 $this->order->products()->attach($product->id, [
                     'count' => 1,
                     'price' => $product->price,
                 ]);
             }
         }
+        return true;
     }
 
 
@@ -87,5 +110,14 @@ class Basket
     public function deleteProduct(Product $product)
     {
         $this->order->products()->detach($product->id);
+    }
+
+    public function saveOrder($email, $name, $phone){
+        if(!$this->countAvaliable()){
+            return false;
+        }
+
+        return $this->order->saveOrder($name, $phone);
+
     }
 }

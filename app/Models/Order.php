@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'phone', 'status',
+        'name', 'phone', 'status','user_id',
     ];
 
 
@@ -38,8 +39,22 @@ class Order extends Model
     }
 
 
-    public static function  saveOrder()
+    public static function  saveOrder($name, $phone)
     {
+       $order = Order::findOrFail(session('order_id'));
+       $order->name = $name;
+       $order->phone = $phone;
+       $order->status = 1;
+       $order->user_id = Auth::user()->id;
+       $order->sum = self::getFullSum();
+       $success = $order->save();
 
+      if($success){
+        session()->flash('success',__('order.Your_order_accept'));
+       } else{
+        session()->flash('warning',__('order.Your_order_canceled'));
+       };
+session()->forget('order_id');
+return redirect()->back();
     }
 }

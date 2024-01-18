@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Traits\LingvoTrait;
 use App\Classes\Basket;
+use Auth;
 
 class BasketController extends Controller
 {
@@ -35,16 +36,26 @@ class BasketController extends Controller
     public function basketAdd(Product $product)
     {
         $basket = new Basket;
-        $basket->addProduct($product);
+        $success = $basket->addProduct($product);
+        if($success){
         session()->flash('success', __('basket.your_product_changed'));
+    }else{
+        session()->flash('warning',__('basket.your_product_not_changed'));
+    }
         return redirect()->back();
     }
 
     public function basketRemove(Product $product)
     {
         $basket = new Basket;
-        $basket->removeProduct($product);
-        session()->flash('success', __('basket.your_product_changed'));
+        $success =  $basket->removeProduct($product);
+            session()->flash('success', __('basket.your_product_changed'));
+            if($success){
+                session()->flash('success', __('basket.your_product_changed'));
+            }else{
+                session()->flash('warning',__('basket.your_product_not_changed'));
+            }
+
         return redirect()->back();
     }
 
@@ -55,4 +66,17 @@ class BasketController extends Controller
         session()->flash('success', __('basket.your_product_removed'));
         return redirect()->back();
     }
+
+    public function basketConfirm(Request $request){
+       $email = Auth::check() ? Auth::user()->email : $request->email;
+       $success = (new Basket())->saveOrder($email,$request->name,$request->phone);
+       if($success){
+        session()->flash('success',__('order.Your_order_accept'));
+       } else{
+        session()->flash('warning',__('order.Your_order_canceled'));
+       };
+
+       return redirect()->route('main');
+    }
+
 }

@@ -37,7 +37,7 @@
                             <a class="nav-link" href="#">{{ __('main.All_goods') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('basket')}}">{{ __('main.Basket') }}</a>
+                            <a class="nav-link" href="{{ route('basket') }}">{{ __('main.Basket') }}</a>
                         </li>
                         <li class="nav-item dropdown ms-auto my-auto">
 
@@ -47,34 +47,40 @@
                                     <option value="ua" @localeactive('ua')>ua</option>
                                     <option value="ru" @localeactive('ru')>ru</option>
                                 </select>
+
                             </form>
                         </li>
                         <li class="nav-item px-4 ms-auto">
                             <form class="d-flex">
                                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-                                <button class="btn btn-outline-success" type="submit">{{__('main.search')}}</button>
+                                <button class="btn btn-outline-success" type="submit">{{ __('main.search') }}</button>
                             </form>
                         </li>
                         <li class="nav-item px-4 ms-auto">
                             @guest
-                            <a class="btn btn-outline-success" href="{{ route('login') }}">{{__('main.log_in')}}</a>
+                                <a class="btn btn-outline-success" href="{{ route('login') }}">{{ __('main.log_in') }}</a>
                             @endguest
 
                             @auth
+                             @ordinary_user
+                            <li class="nav-item dropdown"><a class="nav-link" href="{{route('person.orders')}}">{{__('main.Your_orders')}}</a>
+                                @endordinary_user
+                            </li>
                                 @admin
-                                <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                                <li  class="nav-item"><a  class="nav-link" href="{{ route('home') }}">Панель администратора</a></li>
                             @endadmin
-                            <li class="nav-item dropdown"><a class="nav-link"  href="#">{{ Auth::user()->name }}</a></li>
+                            <li class="nav-item dropdown"><a class="nav-link" href="#">{{ Auth::user()->name }}</a>
+                            </li>
                             <br>
                             <li class="nav-item">
 
-                                <form class="nav-link" method="POST" action="{{route('logout')}}">
+                                <form class="nav-link" method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <input type="submit" value="Выйти">
                                 </form>
 
                             </li>
-                                @endauth
+                        @endauth
                         </li>
                     </ul>
                 </div>
@@ -85,10 +91,10 @@
     <br>
     <div class="container">
         <div class="starter-template">
-            @if(session()->has('success'))
-            <p class="alert alert-success"> {{session()->get('success')}}</p>
+            @if (session()->has('success'))
+                <p class="alert alert-success"> {{ session()->get('success') }}</p>
             @elseif (session()->has('warning'))
-            <p class="alert alert-warning">{{session()->get('warning')}}</p>
+                <p class="alert alert-warning">{{ session()->get('warning') }}</p>
             @endif
             @yield('content')
         </div>

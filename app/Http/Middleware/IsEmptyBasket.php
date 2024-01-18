@@ -22,7 +22,7 @@ class IsEmptyBasket
             return $next($request);
         }
         session()->forget('order_id');
-        session()->flash('warning', __('your_basket_empty'));
+        session()->flash('warning', __('basket.your_basket_empty'));
         return redirect()->route('main');
     }
 }

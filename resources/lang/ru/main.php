@@ -7,4 +7,5 @@ return [
     'details' => 'Подробнее',
     'log_in'=> 'Войти',
     'search' =>'поиск',
+    'Your_orders' => 'Ваши заказы',
 ];

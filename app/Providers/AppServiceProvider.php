@@ -39,5 +39,11 @@ class AppServiceProvider extends ServiceProvider
         return $result;
      });
 
+     Blade::if('ordinary_user',function(){
+        $active = Auth::user()->name;
+        $result = $active === 'admin' ? false : true ;
+        return $result;
+     });
+
 }
 }
