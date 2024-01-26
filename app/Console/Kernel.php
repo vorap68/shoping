@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Services\CurrencyRates;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Http;
+use App\Models\Currency;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,8 +19,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+
+     $schedule->command('currency:cron')->daily();
+
     }
+
 
     /**
      * Register the commands for the application.

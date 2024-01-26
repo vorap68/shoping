@@ -8,4 +8,5 @@ return [
     'log_in'=> 'Войти',
     'search' =>'поиск',
     'Your_orders' => 'Ваши заказы',
+    'price' => 'Цена',
 ];

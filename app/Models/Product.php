@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Traits\LingvoTrait;
 use App\Models\Order;
+use App\Services\CurrencyConversion;
 
 /**
  * App\Models\Product
@@ -24,7 +25,7 @@ class Product extends Model
     use HasFactory, LingvoTrait;
 
     protected $fillable = [
-        'name_ua', 'name_ru', 'description_ua', 'description_ru', 'image', 'image_thumb','count','price'
+        'name_ua', 'name_ru', 'description_ua', 'description_ru', 'image', 'image_thumb', 'count', 'price',
     ];
 
     /**
@@ -42,5 +43,13 @@ class Product extends Model
     public function ordes()
     {
         return $this->belongsToMany(Order::class)->withPivot('count');
+    }
+
+    public function getPriceAttribute($value)
+    {
+        if (empty(session('currency'))) {
+            session(['currency' => "UAH"]);
+        }
+        return   CurrencyConversion::convert($value);
     }
 }

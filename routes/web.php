@@ -33,6 +33,8 @@ Route::group(['middleware'=> 'auth'], function(){
 });
 
 Route::post('locale', 'App\Http\Controllers\MainController@locale')->name('locale_change');
+Route::get('currency/{currencyCode}','App\Http\Controllers\MainController@currency')->name('currency');
+
 Route::group([
     'middleware' => 'locale.set',
 ], function () {

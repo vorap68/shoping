@@ -7,5 +7,7 @@ return [
     'details' => 'Детальнiше',
     'log_in' => 'Увійти',
     'search' => 'пошук',
-    'Your_orders' => 'Вашi замовлення'
+    'Your_orders' => 'Вашi замовлення',
+    'price' => 'Цiна',
+
 ];

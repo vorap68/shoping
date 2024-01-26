@@ -3,6 +3,7 @@
         <img src="{{ asset('storage/images/products/' . $category->code . '/thumb/' . $product->image_thumb) }}">
         <div class="caption">
             <h3>{{ $product->lingvo('name') }}</h3>
+            <p>{{__('main.price')}} <b>{{$product->price}}</b>:{{App\Services\CurrencyConversion::getCurrencySymbol()}}</p>
             <p>
             <form method="post" action="{{route('basket.add',$product)}}" >
                 @csrf

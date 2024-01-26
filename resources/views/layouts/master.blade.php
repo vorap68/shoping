@@ -50,6 +50,19 @@
 
                             </form>
                         </li>
+                    </form></li>
+                    <li class="nav-item dropdown ms-auto my-auto">
+                    <div >
+          <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{session('currency','UAH')}}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('currency','UAH')}}">UAH</a>
+            <a class="dropdown-item" href="{{route('currency','EUR')}}">EUR</a>
+            <a class="dropdown-item" href="{{route('currency','USD')}}">USD</a>
+          </div>
+        </div>
+                    </li>
                         <li class="nav-item px-4 ms-auto">
                             <form class="d-flex">
                                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
