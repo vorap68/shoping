@@ -21,20 +21,39 @@ Auth::routes(
     ]
 );
 
-Route::group(['middleware'=> 'auth'], function(){
-    Route::group(['prefix' => 'person'], function(){
-        Route::get('orders/','App\Http\Controllers\Person\OrderController@index')->name('person.orders');
-        Route::get('orders/{order}','App\Http\Controllers\Person\OrderController@show')->name('person.order.show');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+    /**
+     * Admin Panel
+     */
+    Route::group(['middleware' => 'isAdmin','prefix'=>'admin'], function () {
+        Route::get('/', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.home');
+       Route::resource('category',App\Http\Controllers\Admin\CategoryController::class);
+
+       Route::resource('product',App\Http\Controllers\Admin\ProductController::class);
+       Route::get('products/{category_id}','App\Http\Controllers\Admin\ProductController@allInCategory')->name('all.incategory');
     });
 
-    Route::group(['middleware' => 'isAdmin'],function(){
 
-    });
-});
-
+/**
+ *  Locale_change
+ */
 Route::post('locale', 'App\Http\Controllers\MainController@locale')->name('locale_change');
-Route::get('currency/{currencyCode}','App\Http\Controllers\MainController@currency')->name('currency');
 
+/**
+ * Currency
+ */
+Route::get('currency/{currencyCode}', 'App\Http\Controllers\MainController@currency')->name('currency');
+
+
+/**
+ * front_User
+ */
 Route::group([
     'middleware' => 'locale.set',
 ], function () {
@@ -49,10 +68,17 @@ Route::group([
         Route::match(['post', 'get'], 'basket/remove/{product}', 'App\Http\Controllers\BasketController@basketRemove')->name('basket.remove');
         Route::delete('basket/delete/{product}', 'App\Http\Controllers\BasketController@basketDelete')->name('basket.delete');
         Route::get('basket/place/', 'App\Http\Controllers\BasketController@basketPlace')->name('basket.place');
-      Route::get('basket', 'App\Http\Controllers\BasketController@basket')->name('basket');
+        Route::get('basket', 'App\Http\Controllers\BasketController@basket')->name('basket');
     });
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/**
+ * User_Orders
+ */
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'person'], function () {
+        Route::get('orders/', 'App\Http\Controllers\Person\OrderController@index')->name('person.orders');
+        Route::get('orders/{order}', 'App\Http\Controllers\Person\OrderController@show')->name('person.order.show');
+    });
+});

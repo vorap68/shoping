@@ -80,7 +80,7 @@
                                 @endordinary_user
                             </li>
                                 @admin
-                                <li  class="nav-item"><a  class="nav-link" href="{{ route('home') }}">Панель администратора</a></li>
+                                <li  class="nav-item"><a  class="nav-link" href="{{ route('admin.home') }}">Панель администратора</a></li>
                             @endadmin
                             <li class="nav-item dropdown"><a class="nav-link" href="#">{{ Auth::user()->name }}</a>
                             </li>

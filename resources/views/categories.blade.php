@@ -7,7 +7,7 @@
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a href="{{ route('category', $category) }}">
-                        <img src="{{ asset('storage/images/categories/thumb/' . $category->image) }}">
+                        <img src="{{ asset('storage/' . $category->image) }}">
                         <h2>{{ $category->lingvo('name') }}</h2>
 
                     </a>

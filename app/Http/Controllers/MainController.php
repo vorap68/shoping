@@ -17,8 +17,8 @@ class MainController extends Controller
      */
     public function mainPage()
     {
-        $categories = Category::get();
-        return view('categories', compact('categories'));
+       // $categories = Category::get();
+        return view('categories');
     }
 
     public function category(Category $category)
