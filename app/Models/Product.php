@@ -25,7 +25,7 @@ class Product extends Model
     use HasFactory, LingvoTrait;
 
     protected $fillable = [
-        'name_ua', 'name_ru', 'description_ua', 'description_ru', 'image', 'image_thumb', 'count', 'price',
+        'name_ua', 'name_ru', 'description_ua', 'description_ru', 'image', 'count', 'price','category_id',
     ];
 
     /**

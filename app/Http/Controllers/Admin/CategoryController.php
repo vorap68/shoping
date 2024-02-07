@@ -39,7 +39,7 @@ class CategoryController extends Controller
     {
         $params = $request->all();
         if(!is_null($request->file('image'))){
-        $path = $request->file('image')->store('/images/categories');
+        $path = $request->file('image')->store('/images/category');
         $params['image'] = $path;
         }
         $success = Category::create($params);
@@ -86,7 +86,7 @@ class CategoryController extends Controller
     {
         $params = $request->all();
         if(!is_null($request->file('image'))){
-        $path = $request->file('image')->store('/images/categories');
+        $path = $request->file('image')->store('/images/category');
         $params['image'] = $path;
         }
         $success = $category->update($params);

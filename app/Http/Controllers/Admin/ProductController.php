@@ -6,9 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Classes\ImageSaver;
 
 class ProductController extends Controller
 {
+    private $imageSaver;
+
+    public function __construct(ImageSaver $imageSaver)
+    {
+        $this->imageSaver = $imageSaver;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +24,9 @@ class ProductController extends Controller
      */
     public function allInCategory($id)
     {
-        //$categories = Category::all();
-        $products = Product::where('category_id',$id)->get();
+        $products = Product::where('category_id', $id)->get();
         $categoryName = Category::findOrFail($id)->name_ru;
-        return view('admin.product.index',compact('products','categoryName'));
-       //d($products);
+        return view('admin.product.index', compact('products', 'categoryName'));
     }
 
     /**
@@ -37,17 +43,19 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $category_code = Category::findOrFail($request->category_id)->code;
-        dd($category_code);
         $params = $request->all();
-        if(!is_null($request->file('image'))){
+        if (!is_null($request->file('image'))) {
             $category_code = Category::findOrFail($request->category_id)->code;
-            $path = $request->file('image')->store('');
+            $image_name = $this->imageSaver->upload($request, null, 'products/' . $category_code);
+            $params['image'] = $image_name;
         };
+        Product::create($params);
+        return redirect()->route('all.incategory', $request->category_id);
     }
 
     /**
@@ -69,7 +77,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
@@ -81,7 +89,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $params = $request->all();
+        if (!is_null($request->file('image')) || isset($request->remove)) {
+                      $category_code =$product->category->code;
+            $image_name = $this->imageSaver->upload($request, $product, 'products/' . $category_code);
+            $params['image'] = $image_name;
+        }
+        $product->update($params);
+        return redirect()->route('all.incategory', $product->category->id);
     }
 
     /**
@@ -92,6 +107,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->back();
     }
 }

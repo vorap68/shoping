@@ -31,7 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     /**
      * Admin Panel
      */
-    Route::group(['middleware' => 'isAdmin','prefix'=>'admin'], function () {
+    Route::group(['middleware' => ['auth','isAdmin'],'prefix'=>'admin'], function () {
         Route::get('/', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.home');
        Route::resource('category',App\Http\Controllers\Admin\CategoryController::class);
 
