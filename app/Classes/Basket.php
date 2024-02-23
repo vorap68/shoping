@@ -41,24 +41,18 @@ class Basket
 
     public function countAvaliable()
     {
-        foreach($this->order->products as $order_product){
+        foreach ($this->order->products as $order_product) {
 
             $pivotRow = $order_product->pivot;
-
             $product =  Product::findOrFail($pivotRow->product_id);
             $productCount = $product->count;
-
-           // if($pivotRow->id != $product->id) continue;
-            if($pivotRow->count > $productCount){
-                //dd('count_less');
+            if ($pivotRow->count > $productCount || $productCount == 0) {
+                session()->flash('warning', __('basket.this_product_tempory_not_avaliable'));
                 return false;
             }
-
-            $product->update(['count'=> ($productCount - $pivotRow->count)]);
-           // dd($productCount);
+            $product->update(['count' => ($productCount - $pivotRow->count)]);
         }
         return true;
-
     }
 
     /**
@@ -71,16 +65,21 @@ class Basket
         if ($this->order->products->contains($product)) {
             $pivotRow = $this->order->products()->where('product_id', $product->id)->first()->pivot;
             $countInOrder = $pivotRow->count;
-          if($countInOrder >= $product->count){
-                     return false;
-           }
+            if ($countInOrder >= $product->count) {
+                return false;
+            }
             $this->order->products()->updateExistingPivot($product->id, ['count' => ($countInOrder + 1)]);
         } else {
             if ($product->count >= 1) {
                 $this->order->products()->attach($product->id, [
                     'count' => 1,
                     'price' => $product->price,
+                    'category_id' => $product->category->id,
+                    'code' => session('currency'),
                 ]);
+            } else {
+
+                return false;
             }
         }
         return true;
@@ -112,12 +111,12 @@ class Basket
         $this->order->products()->detach($product->id);
     }
 
-    public function saveOrder($email, $name, $phone){
-        if(!$this->countAvaliable()){
+    public function saveOrder($email, $name, $phone)
+    {
+        if (!$this->countAvaliable()) {
             return false;
         }
 
         return $this->order->saveOrder($name, $phone);
-
     }
 }

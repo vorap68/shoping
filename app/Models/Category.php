@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Traits\LingvoTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
@@ -34,7 +35,7 @@ use App\Models\Product;
  */
 class Category extends Model
 {
-    use LingvoTrait;
+    use LingvoTrait , HasFactory;
 
     protected $fillable = [
         'code','name_ua','name_ru','description_ua','description_ru','image',

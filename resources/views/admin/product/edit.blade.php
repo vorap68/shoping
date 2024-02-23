@@ -30,18 +30,27 @@
 
                                 <div class="form-group">
                                     <label for="name_ru">Название</label>
+                                    @error('name_ru')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="name_ru" class="form-control" id="name_ru"
                                         placeholder="Название "
                                         value="{{ old('name_ru', isset($product->name_ru) ? $product->name_ru : null) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="name_ua">Назва</label>
+                                    @error('name_ua')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="name_ua" class="form-control" id="name_ua"
                                         placeholder="Назва"
                                         value="{{ old('name_ua', isset($product->name_ua) ? $product->name_ua : null) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="description_ru">Описание</label>
+                                    @error('description_ru')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <div>
                                     <textarea name="description_ru" id="description_ru" cols="72" rows="7"  placeholder="Описание ">
                                         {{ old('description_ru', isset($product->description_ru) ? $product->description_ru : null) }}
@@ -50,6 +59,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description_ua">Опис</label>
+                                    @error('description_ua')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <div>
                                         <textarea name="description_ua" id="description_ua" cols="72" rows="7"  placeholder="Опис ">
                                             {{ old('description_ua', isset($product->description_ua) ? $product->description_ua : null) }}
@@ -59,11 +71,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Цена</label>
+                                    @error('price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="price"class="form-control" id="price"
                                         placeholder="Цена" value="{{ old('price', isset($product->price) ? $product->price : null) }} ">
                                 </div>
                                 <div class="form-group">
                                     <label for="count">Количество</label>
+                                    @error('count')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="count"class="form-control" id="count"
                                         placeholder="Количество"  value="{{ old('count', isset($product->count) ? $product->count : null) }}">
                                 </div>

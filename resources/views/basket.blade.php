@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.order')
 @section('title', 'Корзина')
 @section('content')
 
@@ -34,8 +34,8 @@
                                 </form>
                             </div>
                         </td>
-                        <td>{{ $product->pivot->price }}</td>
-                        <td>{{ $product->pivot->price * $product->pivot->count }}</td>
+                        <td>{{ $product->pivot->price }}: {{session('currency')}}</td>
+                        <td>{{ $product->pivot->price * $product->pivot->count }}: {{session('currency')}}</td>
                         <td>
                             <form action="{{ route('basket.delete', $product) }}" method="POST">
                                 @csrf
@@ -48,7 +48,7 @@
 
                 <tr>
                     <td>{{ __('basket.all_cost') }}</td>
-                    <td>{{ $order->getFullSum() }}</td>
+                    <td>{{ $order->getFullSum() }}: {{session('currency')}}</td>
                 </tr>
             </tbody>
         </table>

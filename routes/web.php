@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test',function(){
+    $product = Product::pluck('id');
+    dd($product->toArray());
+})->name('test');
 
 Auth::routes(
     [
@@ -63,6 +68,9 @@ Route::group([
     Route::get('product/{product}', 'App\Http\Controllers\MainController@product')->name('product');
     Route::match(['post', 'get'], 'basket/add/{product}', 'App\Http\Controllers\BasketController@basketAdd')->name('basket.add');
     Route::post('basket/confirm/', 'App\Http\Controllers\BasketController@basketConfirm')->name('basket.confirm');
+/**
+ * basket
+ */
 
     Route::group(['middleware' => 'basket.empty'], function () {
         Route::match(['post', 'get'], 'basket/remove/{product}', 'App\Http\Controllers\BasketController@basketRemove')->name('basket.remove');
@@ -77,8 +85,18 @@ Route::group([
  * User_Orders
  */
 Route::group(['middleware' => 'auth'], function () {
-    Route::group(['prefix' => 'person'], function () {
-        Route::get('orders/', 'App\Http\Controllers\Person\OrderController@index')->name('person.orders');
-        Route::get('orders/{order}', 'App\Http\Controllers\Person\OrderController@show')->name('person.order.show');
+    Route::group(['prefix' => 'person',
+                  'middleware' => 'locale.set',], function () {
+        Route::get('orders/', 'App\Http\Controllers\OrderPersonController@index')->name('person.orders');
+        Route::get('order/{order}', 'App\Http\Controllers\OrderPersonController@show')->name('person.order.show');
+    });
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('orders/', 'App\Http\Controllers\Admin\OrderController@allOrders')->name('admin.orders');
+        Route::get('orders/{category}', 'App\Http\Controllers\Admin\OrderController@ordersCategory')->name('admin.orders.category');
+        Route::get('order/{order}', 'App\Http\Controllers\Admin\OrderController@show')->name('admin.order.show');
+       // Route::get('order/{order}', 'App\Http\Controllers\Admin\OrderController@show')->name('admin.order.show');
+        Route::delete('order/delete/{order}', 'App\Http\Controllers\Admin\OrderController@orderDelete')->name('admin.order.delete');
     });
 });
+
+

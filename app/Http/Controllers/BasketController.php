@@ -37,10 +37,10 @@ class BasketController extends Controller
     {
         $basket = new Basket;
         $success = $basket->addProduct($product);
-        if($success){
+     if($success){
         session()->flash('success', __('basket.your_product_changed'));
     }else{
-        session()->flash('warning',__('basket.your_product_not_changed'));
+        session()->flash('warning',__('basket.this_product_tempory_not_avaliable'));
     }
         return redirect()->back();
     }

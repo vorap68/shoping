@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.order')
 
 @section('title', 'Заказы')
 
@@ -21,7 +21,7 @@
     <td>{{$order_user->name }}</td>
     <td>{{$order_user->phone }}</td>
     <td>{{$order_user->created_at}}</td>
-        <td>{{$order_user->getFullSum()}}</td>
+        <td>{{$order_user->getFullSum()}}: {{$order_user->code}}</td>
     <td><a href="{{route('person.order.show',$order_user)}}"> Открыть</a></td>
 </tr>
 

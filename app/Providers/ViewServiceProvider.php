@@ -25,8 +25,12 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['category','categories','layouts.master','layouts.admin_master','admin.product.create','admin.product.edit',],function($view){
+        View::composer(['*'],function($view){
             $view->with(['categories' => Category::get()]);
         });
-    }
+
+        // View::composer(['*'],function($view){
+        //     $view->with(['currentUrl' => Category::get()]);
+        // })
+}
 }

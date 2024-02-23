@@ -40,31 +40,49 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name_ru">Название</label>
+                                     @error('name_ru')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="name_ru" class="form-control" id="name_ru"
                                         placeholder="Название ">
                                 </div>
                                 <div class="form-group">
                                     <label for="name_ua">Назва</label>
+                                    @error('name_ua')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="name_ua" class="form-control" id="name_ua"
                                         placeholder="Назва ">
                                 </div>
                                 <div class="form-group">
                                     <label for="description_ru">Описание</label>
+                                    @error('namdescription_rue_ru')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text"  name="description_ru" class="form-control" id="description_ru"
                                         placeholder="Описание ">
                                 </div>
                                 <div class="form-group">
                                     <label for="description_ua">Опис</label>
+                                    @error('description_ua')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text"  name="description_ua"class="form-control" id="description_ua"
                                         placeholder="Опис ">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Цена</label>
+                                    @error('price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text"  name="price"class="form-control" id="price"
                                         placeholder="Цена ">
                                 </div>
                                 <div class="form-group">
                                     <label for="count">Количество</label>
+                                    @error('count')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text"  name="count"class="form-control" id="count"
                                         placeholder="Количество ">
                                 </div>

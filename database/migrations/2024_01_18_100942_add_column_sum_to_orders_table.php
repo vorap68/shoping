@@ -14,7 +14,7 @@ class AddColumnSumToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->decimal('sum');
+            $table->decimal('sum')->default(0);
         });
     }
 

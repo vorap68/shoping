@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.order')
 
 @section('title', 'Заказ')
 
@@ -23,12 +23,12 @@
                             {{ $item->lingvo('name') }}
                         </td>
                         <td>{{ $item->pivot->count }}</td>
-                        <td>{{ $item->price }}</td>
-                        <td>{{ $item->price * $item->pivot->count }}</td>
+                        <td>{{ $item->pivot->price }}: {{$item->pivot->code}}</td>
+                        <td>{{ $item->pivot->price * $item->pivot->count }} : {{$item->pivot->code}}</td>
                     </tr>
                 @endforeach
                 <tr>
-                    <td colspan="3">Общая стоимость {{$order->sum}}</td>
+                    <td colspan="3">Общая стоимость {{$order->sum}}: {{$item->pivot->code}} </td>
 
                 </tr>
             </tbody>

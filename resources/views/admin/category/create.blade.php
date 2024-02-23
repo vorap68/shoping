@@ -26,27 +26,43 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
+                                    @error('code')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <label for="code">Код</label>
                                     <input type="text" name="code" class="form-control" id="code"
                                         placeholder="Введите код">
                                 </div>
+
                                 <div class="form-group">
                                     <label for="name_ru">Название</label>
+                                    @error('name_ru')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="name_ru" class="form-control" id="name_ru"
                                         placeholder="Название ">
                                 </div>
                                 <div class="form-group">
                                     <label for="name_ua">Назва</label>
+                                    @error('name_ua')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text" name="name_ua" class="form-control" id="name_ua"
                                         placeholder="Назва ">
                                 </div>
                                 <div class="form-group">
                                     <label for="description_ru">Описание</label>
+                                    @error('description_ru')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text"  name="description_ru" class="form-control" id="description_ru"
                                         placeholder="Описание ">
                                 </div>
                                 <div class="form-group">
                                     <label for="description_ua">Опис</label>
+                                    @error('description_ua')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                     <input type="text"  name="description_ua"class="form-control" id="description_ua"
                                         placeholder="Опис ">
                                 </div>

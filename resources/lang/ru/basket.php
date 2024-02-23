@@ -11,4 +11,5 @@ return [
     'your_product_not_changed'=> 'Ваш товар НЕ изменен',
     'your_product_removed' => 'Ваш товар удален полностью',
     'your_basket_empty' => 'Ваша корзина пуста',
+    'this_product_tempory_not_avaliable' => 'Этот товар временно недоступен',
 ];

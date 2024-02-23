@@ -30,28 +30,42 @@
 
 
                                     <div class="form-group">
-                                        <label for="code">Код</label>
+                                        <label for="code">Код</label> @error('code')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                         <input type="text" value="{{ $category['code'] }}" name="code" class="form-control" id="code"
                                             placeholder="Введите код">
                                     </div>
                                     <div class="form-group">
                                         <label for="name_ru">Название</label>
+                                         @error('name_ru')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                         <input type="text" value="{{ $category['name_ru'] }}" name="name_ru" class="form-control"
                                             id="name_ru" placeholder="Введите название категории" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="name_ua">Назва</label>
+                                         @error('name_ua')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                         <input type="text" value="{{ $category['name_ua'] }}" name="name_ua" class="form-control" id="name_ua"
                                             placeholder="Назва ">
                                     </div>
                                     <div class="form-group">
                                         <label for="description_ru">Описание</label>
+                                         @error('description_ru')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                         <input type="text" value="{{ $category['description_ru'] }}" name="description_ru" class="form-control" id="description_ru"
                                             placeholder="Описание ">
                                     </div>
                                     <div class="form-group">
                                         <label for="description_ua">Опис</label>
+                                         @error('description_ua')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                         <input type="text"  value="{{ $category['description_ua'] }}" name="description_ua"class="form-control" id="description_ua"
                                             placeholder="Опис ">
                                     </div>

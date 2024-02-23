@@ -39,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('basket') }}">{{ __('main.Basket') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('test') }}">test</a>
+                        </li>
                         <li class="nav-item dropdown ms-auto my-auto">
 
                             <form action="{{ route('locale_change') }}" method="post">
@@ -50,19 +53,25 @@
 
                             </form>
                         </li>
-                    </form></li>
-                    <li class="nav-item dropdown ms-auto my-auto">
-                    <div >
-          <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{session('currency','UAH')}}
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('currency','UAH')}}">UAH</a>
-            <a class="dropdown-item" href="{{route('currency','EUR')}}">EUR</a>
-            <a class="dropdown-item" href="{{route('currency','USD')}}">USD</a>
-          </div>
-        </div>
-                    </li>
+
+                        </li>
+
+
+                        <li class="nav-item dropdown ms-auto my-auto">
+                            <div>
+
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ session('currency', 'UAH') }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('currency', 'UAH') }}">UAH</a>
+                                    <a class="dropdown-item" href="{{ route('currency', 'EUR') }}">EUR</a>
+                                    <a class="dropdown-item" href="{{ route('currency', 'USD') }}">USD</a>
+                                </div>
+                            </div>
+                        </li>
+
                         <li class="nav-item px-4 ms-auto">
                             <form class="d-flex">
                                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
@@ -75,12 +84,14 @@
                             @endguest
 
                             @auth
-                             @ordinary_user
-                            <li class="nav-item dropdown"><a class="nav-link" href="{{route('person.orders')}}">{{__('main.Your_orders')}}</a>
+                                @ordinary_user
+                                <li class="nav-item dropdown"><a class="nav-link"
+                                        href="{{ route('person.orders') }}">{{ __('main.Your_orders') }}</a>
                                 @endordinary_user
                             </li>
-                                @admin
-                                <li  class="nav-item"><a  class="nav-link" href="{{ route('admin.home') }}">Панель администратора</a></li>
+                            @admin
+                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.home') }}">Панель
+                                        администратора</a></li>
                             @endadmin
                             <li class="nav-item dropdown"><a class="nav-link" href="#">{{ Auth::user()->name }}</a>
                             </li>

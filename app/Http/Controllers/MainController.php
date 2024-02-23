@@ -23,7 +23,8 @@ class MainController extends Controller
 
     public function category(Category $category)
     {
-        return view('category', compact('category'));
+        $category = Category::findOrFail($category->id);
+       return view('category', compact('category'));
     }
 
     public function product(Product $product)
