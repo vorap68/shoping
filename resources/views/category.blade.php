@@ -7,8 +7,12 @@
     </h1>
     <p>{{ $category->lingvo('description') }} </p>
     <div class="row">
-        @foreach ($category->products as $product)
+
+        @foreach ($paginateProducts as $product)
+
+        {{-- @foreach ($category->products as $product) --}}
             @include('cards.card')
         @endforeach
     </div>
+    {{ $paginateProducts->links() }}
 @endsection

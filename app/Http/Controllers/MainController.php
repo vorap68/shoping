@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 
 class MainController extends Controller
@@ -17,14 +18,26 @@ class MainController extends Controller
      */
     public function mainPage()
     {
-       // $categories = Category::get();
+        // $categories = Category::get();
         return view('categories');
     }
 
-    public function category(Category $category)
+    public function category(Category $category,Request $request)
     {
-        $category = Category::findOrFail($category->id);
-       return view('category', compact('category'));
+        $allProducts = $category->products;
+        $currentPage = Paginator::resolveCurrentPage();
+        // Задаем кол-во элементов на страницу
+        $perPage = 3;
+        // Выбираем элементы для текущей страницы
+        $currentPageItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage);
+        // Создаем экземпляр класса Paginator
+        $paginateProducts = new Paginator($currentPageItems, count($allProducts), $perPage);
+        // Указываем URI для генерации ссылок пагинации
+        $paginateProducts->setPath($request->url());
+        //dd($paginateProducts);
+        // dd($category->products->toArray());
+        //return view('category', compact('category'));
+        return view('category', compact('paginateProducts', 'category'));
     }
 
     public function product(Product $product)

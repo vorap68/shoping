@@ -6,6 +6,9 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use App\Models\Currency;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +19,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * Create table Currencies
+         */
+
+        DB::table('currencies')->insert([
+           [ 'code' => 'UAH',
+            'symbol' => '₴',
+            'is_main' => 1,
+            'rate' => 1
+        ],
+        [ 'code' => 'USD',
+            'symbol' => '$',
+            'is_main' => 0,
+            'rate' => 37
+        ],
+        [ 'code' => 'EUR',
+            'symbol' => '€',
+            'is_main' => 0,
+            'rate' => 41
+        ],
+    ]);
+
+    /**
+     * Create model User
+     */
+     User::factory(10)->create();
+
 /**
  *  Create models Category and Product
  */
